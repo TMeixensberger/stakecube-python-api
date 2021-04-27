@@ -21,8 +21,8 @@
 
 from stakecube.userApi import *
 
-api_key = "5be9c7a58e975f3d4a74ca760c8a9d4f3dc91d10707e588434f961b369d204c5"
-api_secret = "f82fcc9c82505e5aaaea4a8d9256465bf24301a2e1929fddf7cc6c41e0f1906955706173b92f3344d90316fcd365af6d922bc4d395beef214a5f2504e531995d"
+api_key = "xxx"
+api_secret = "xxxxxx"
 
 user = UserAPI(api_key, api_secret)
 
