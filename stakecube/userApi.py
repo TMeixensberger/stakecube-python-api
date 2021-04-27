@@ -93,6 +93,33 @@ class UserAPI:
         else:
             return None
 
+    def withdraw(self, destinationAddress, amount, ticker):
+
+        currentNonce = getNonce()
+
+        # sum up all parameters
+        paramerters = "nonce=" + currentNonce + "&ticker=" + ticker + "&address=" + destinationAddress + "&amount=" + str(amount)
+
+        url = api_base_url + "user/withdraw"
+
+        postObj = {
+            "nonce" : currentNonce,
+            "ticker" : ticker,
+            "address" : destinationAddress,
+            "amount" : str(amount),
+            "signature": getHMAC(paramerters, self.api_secret)
+        }
+
+        # send the api request
+        response = requests.post(url, headers = self.headers, data=postObj)
+        print(response.status_code)
+        print(response.text)
+        # check if the request was successful
+        if response.status_code == 200 and response.json()['success'] == True:
+            return response.json()
+        else:    
+            return None
+
     def account(self):
         
         nonce = "nonce=" + getNonce()
@@ -101,7 +128,7 @@ class UserAPI:
         url = api_base_url + "user/account?" + paramerters + "&" + signature
 
         # send the api request
-        response =requests.get(url, headers = self.headers)
+        response = requests.get(url, headers = self.headers)
 
         # check if the request was successful
         if response.status_code == 200 and response.json()['success'] == True:
