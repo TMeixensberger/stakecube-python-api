@@ -14,7 +14,7 @@
 #You should have received a copy of the GNU Lesser General Public License
 #along with stakecube-python-api.  If not, see <http://www.gnu.org/licenses/>.
 #
-# copyright Tobias Meixensberger (C) 2017
+# copyright Tobias Meixensberger (C) 2021
 # author    Tobias Meixensberger
 # contact   tobias@tmeixensberger.de
 #
