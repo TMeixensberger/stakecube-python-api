@@ -37,6 +37,31 @@ class ExchangeAPI:
         self.last_error = ""
         return tmp
 
+    def cancelOrder(self, orderId):
+        
+        currentNonce = getNonce()
+
+        # sum up all parameters
+        paramerters = "orderId=" + str(orderId) + "&nonce=" + currentNonce
+
+        url = api_base_url + "exchange/spot/cancel"
+
+        postObj = {
+            "orderId" : orderId,
+            "nonce" : currentNonce,
+            "signature": getHMAC(paramerters, self.api_secret)
+        }
+
+        # send the api request
+        response = requests.post(url, headers = self.headers, data=postObj)
+        
+        # check if the request was successful
+        if response.status_code == 200 and response.json()['success'] == True:
+            return True
+        else:    
+            self.last_error = response.json()['error']
+            return False
+
     def order(self, market, side, price, amount):
 
         currentNonce = getNonce()

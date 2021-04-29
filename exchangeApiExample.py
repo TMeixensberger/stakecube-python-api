@@ -22,8 +22,8 @@
 from stakecube.exchangeApi import ExchangeAPI
 from stakecube.userApi import *
 
-api_key = "xxx"
-api_secret = "xxxxxx"
+api_key = "9609740d4984687e6a3b465d572f5360e9042d85c419cef360478512bdf7c3f8"
+api_secret = "bd26cb5096d8c6c9e0a88965f9e19ffebad1564fae5787aeedd7de0299ecc4523bdd1a766732eb36480ace474ad3e17a62750c9b405f41b350eab59b10eaa7c4"
 
 exchange = ExchangeAPI(api_key, api_secret)
 
@@ -34,7 +34,7 @@ market = "DOGE_SCC"
 side = "BUY"
 
 # price in the base coin
-price = 0.0187
+price = 0.01
 
 # amount in the market coin
 amount = 50
@@ -43,8 +43,14 @@ amount = 50
 orderId = exchange.order(market, side, price, amount)
 
 if orderId > 0:
-    # order was created
-    pass
+    print("Order has been created. OrderId:", orderId)
+
+    # cancel the order
+    if exchange.cancelOrder(orderId):
+        print("Successfully canceled the order.")
+    else:
+        print("Error occurred during removing the order.")
+        print(exchange.getLastError())
 else:
     # error occurred
     print(exchange.getLastError())
