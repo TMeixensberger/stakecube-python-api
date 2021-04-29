@@ -25,11 +25,17 @@ from .helper.utility import *
 
 class ExchangeAPI:
     def __init__(self, api_key, api_secret) -> None:
+        self.last_error = ""
         self.api_key = api_key
         self.api_secret = api_secret
         self.headers = {'X-API-KEY': self.api_key,
                         'Host': api_base_host,
                         'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36'}
+
+    def getLastError(self):
+        tmp = self.last_error
+        self.last_error = ""
+        return tmp
 
     def order(self, market, side, price, amount):
 
@@ -54,6 +60,7 @@ class ExchangeAPI:
         
         # check if the request was successful
         if response.status_code == 200 and response.json()['success'] == True:
-            return response.json()
+            return response.json()['result']['orderId']
         else:    
-            return None
+            self.last_error = response.json()['error']
+            return -1

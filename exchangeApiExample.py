@@ -34,10 +34,17 @@ market = "DOGE_SCC"
 side = "BUY"
 
 # price in the base coin
-price = 0.01
+price = 0.0187
 
 # amount in the market coin
 amount = 50
 
 # buy 50 DOGE for 0.0001 SCC per DOGE
-exchange.order(market, side, price, amount)
+orderId = exchange.order(market, side, price, amount)
+
+if orderId > 0:
+    # order was created
+    pass
+else:
+    # error occurred
+    print(exchange.getLastError())
