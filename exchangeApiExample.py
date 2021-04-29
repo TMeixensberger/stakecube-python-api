@@ -22,8 +22,8 @@
 from stakecube.exchangeApi import ExchangeAPI
 from stakecube.userApi import *
 
-api_key = "8046ba0fb805056d227956e94ef6d76436667a7908e8fe4f5d067d04534e0f55"
-api_secret = "4965e04499708b1cb35f7fd7eb4a394b8361a450a3adb494b65c2f6b6825e8b249bf989a1c40e83ccd8fd7ef6559b0dca6971267e39ea6d6575564cdd6c5c05b"
+api_key = "xxx"
+api_secret = "xxxxxx"
 
 exchange = ExchangeAPI(api_key, api_secret)
 
