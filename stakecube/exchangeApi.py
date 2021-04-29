@@ -19,6 +19,7 @@
 # contact   tobias@tmeixensberger.de
 #
  
+from typing import OrderedDict
 import requests
 from .helper.security import *
 from .helper.utility import *
@@ -36,6 +37,34 @@ class ExchangeAPI:
         tmp = self.last_error
         self.last_error = ""
         return tmp
+    
+    def sellOrderbook(self, market):
+        orderbook = self.orderbook("SELL", market)
+        if orderbook != None:
+            return orderbook['asks']
+        else:
+            return None
+
+    def buyOrderbook(self, market):
+        orderbook = self.orderbook("BUY", market)
+        if orderbook != None:
+            return orderbook['bids']
+        else:
+            return None
+
+    def orderbook(self, side, market):
+        paramerters = "market=" + market + "&side=" + side
+        signature = "signature=" + getHMAC(paramerters, self.api_secret)
+        url = api_base_url + "exchange/spot/orderbook?" + paramerters + "&" + signature
+
+        # send the api request
+        response = requests.get(url, headers = self.headers)
+
+        # check if the request was successful
+        if response.status_code == 200 and response.json()['success'] == True:
+            return response.json()['result']
+        else:    
+            return None
 
     def cancelOrder(self, orderId):
         

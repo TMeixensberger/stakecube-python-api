@@ -22,10 +22,12 @@
 from stakecube.exchangeApi import ExchangeAPI
 from stakecube.userApi import *
 
-api_key = "9609740d4984687e6a3b465d572f5360e9042d85c419cef360478512bdf7c3f8"
-api_secret = "bd26cb5096d8c6c9e0a88965f9e19ffebad1564fae5787aeedd7de0299ecc4523bdd1a766732eb36480ace474ad3e17a62750c9b405f41b350eab59b10eaa7c4"
+api_key = "xxx"
+api_secret = "xxxxx"
 
 exchange = ExchangeAPI(api_key, api_secret)
+
+buyOrderbook = exchange.sellOrderbook("DOGE_SCC")
 
 # doge is the market coin and scc the base coin
 market = "DOGE_SCC"
