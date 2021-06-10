@@ -118,3 +118,31 @@ class ExchangeAPI:
         else:    
             self.last_error = response.json()['error']
             return -1
+
+
+    # trade history function
+    def tradehistory(self, limit, market):
+
+        currentNonce = getNonce()
+
+        paramerters = "market=" + market + "&limit=" + limit + "&nonce=" + currentNonce
+        signature = "signature=" + getHMAC(paramerters, self.api_secret)
+        url = api_base_url + "exchange/spot/myOrderHistory?" + paramerters + "&" + signature
+
+        # send the api request
+        response = requests.get(url, headers = self.headers)
+
+        # check if the request was successful
+        if response.status_code == 200 and response.json()['success'] == True:
+            return response.json()['result']
+        else:
+            return None
+
+    # pull existing markets list
+    def pull_markets(self):
+        url = api_base_url + "/exchange/spot/markets?"
+        response = requests.get(url, headers = self.headers)
+        if response.status_code == 200 and response.json()['success'] == True:
+            return response.json()['result']
+        else:
+            return None
